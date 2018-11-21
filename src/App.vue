@@ -25,9 +25,12 @@ In the last decade, most block buster hits have happened around or during the su
 </template>
 
 <script>
-import _ from 'lodash'
-import AreaChart from './components/AreaChart'
-import Histogram from './components/Histogram'
+import {
+  chain,
+  every,
+} from 'lodash';
+import AreaChart from './components/AreaChart';
+import Histogram from './components/Histogram';
 
 const startYear = 2008;
 
@@ -51,24 +54,24 @@ export default {
     fetch(`./movies.json`)
       .then(resp => resp.json())
       .then(movies => {
-        this.movies = _.chain(movies)
+        this.movies = chain(movies)
           .map((d, id) => Object.assign(d, {id, date: new Date(d.date)}))
           .filter(d => d.boxOffice && d.year >= startYear)
           .value();
-        this.filtered = this.movies
+        this.filtered = this.movies;
       });
   },
   // computed: {
   //   filtered: function() {
-  //     return _.filter(this.movies, d => _.every(this.filters, (bounds, key) =>
+  //     return filter(this.movies, d => every(this.filters, (bounds, key) =>
   //       !bounds || bounds[0] < d[key] && d[key] < bounds[1]))
   //   }
   // },
   methods: {
     updateFilters: function(filter) {
-      this.filters = Object.assign(this.filters, filter)
-      this.filtered = _.filter(this.movies, d =>
-        _.every(this.filters, (bounds, key) => !bounds || bounds[0] < d[key] && d[key] < bounds[1]))
+      this.filters = Object.assign(this.filters, filter);
+      this.filtered = filter(this.movies, d =>
+        every(this.filters, (bounds, key) => !bounds || bounds[0] < d[key] && d[key] < bounds[1]));
     }
   }
 }
