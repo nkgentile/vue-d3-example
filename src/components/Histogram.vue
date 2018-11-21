@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import * as d3 from 'd3'
 import {TweenMax} from 'gsap'
 
@@ -101,7 +100,7 @@ export default {
       })
 
       // and then animate them
-      const tween = TweenMax.staggerFromTo(this.bars, 0.25, {
+      TweenMax.staggerFromTo(this.bars, 0.25, {
         // from
         cycle: {
           y: (i) => this.bars[i].y,

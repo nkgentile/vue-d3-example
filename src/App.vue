@@ -14,7 +14,7 @@ In the last decade, most block buster hits have happened around or during the su
       <AreaChart v-bind='{movies, filtered}' />
     </div>
     <!-- HISTOGRAM -->
-    <div class='histograms' v-for='({id, label, format}) in histograms'>
+    <div class='histograms' v-for='({id, label, format}) in histograms' :key="id">
       <Histogram v-bind='{movies, filtered, id, format, updateFilters}' />
       <div>
         <strong>{{ label }}</strong>
@@ -26,7 +26,6 @@ In the last decade, most block buster hits have happened around or during the su
 
 <script>
 import _ from 'lodash'
-import * as d3 from 'd3'
 import AreaChart from './components/AreaChart'
 import Histogram from './components/Histogram'
 
