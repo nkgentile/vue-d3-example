@@ -46,17 +46,11 @@
 </template>
 
 <script>
-  import {
-    brushX,
-    extent,
-    histogram,
-    interpolateViridis,
-    max,
-    median,
-    scaleLinear,
-    scaleSequential,
-    select
-  } from "d3";
+  import { extent, histogram, max, median } from "d3-array";
+  import { scaleLinear, scaleSequential } from "d3-scale";
+  import { brushX, brushSelection } from "d3-brush";
+  import { select } from "d3-selection";
+  import { interpolateViridis } from "d3-scale-chromatic";
   import { TweenMax } from "gsap";
 
   const width = 500;
