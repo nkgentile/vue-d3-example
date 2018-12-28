@@ -1,5 +1,5 @@
 <template>
-  <svg class="histogram" :width="width" :height="height">
+  <svg class="histogram" v-bind="{width, height}">
     <g class="bars">
       <rect
         v-for="({
@@ -12,7 +12,6 @@
           width,
           height,
           fill,
-          stroke
         }"
       ></rect>
     </g>
@@ -151,8 +150,6 @@
     watch: {
       bars: {
         handler(newBars, oldBars) {
-          // eslint-disable-next-line
-          console.log(newBars);
           return new TweenMax(
             this.bars,
             25,
@@ -185,8 +182,9 @@
     methods: {
       brushEnd: function() {
         let bounds = null;
-        if (event.selection) {
-          const [x1, x2] = event.selection;
+        const selection = brushSelection(this.$refs.brush);
+        if (selection) {
+          const [x1, x2] = selection;
           bounds = [this.scaleX.invert(x1), this.scaleX.invert(x2)];
         }
         this.updateFilters({ [this.id]: bounds });
